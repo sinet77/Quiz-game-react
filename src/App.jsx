@@ -15,6 +15,10 @@ function App() {
     setSelectedDifficulty(newDifficulty);
   };
 
+  const handleCurrentQuestion = (question) => {
+    setCurrentQuestion(question)
+  }
+
   const goToNextQuestion = () => {
     setCurrentQuestion(currentQuestion + 1);
   };
@@ -39,7 +43,10 @@ function App() {
 
       {selectedCategory !== undefined &&
         selectedDifficulty !== undefined &&
-        currentQuestion && <Questions goToNextQuestion={goToNextQuestion} />}
+        currentQuestion && <Questions goToNextQuestion={goToNextQuestion} 
+        category={handleSelectedCategoryChange} 
+        difficulty={handleSelectedDifficultyChange} 
+        currentQuestion={handleCurrentQuestion}/>}
     </div>
   );
 }

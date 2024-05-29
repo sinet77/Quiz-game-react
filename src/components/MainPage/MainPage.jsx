@@ -11,14 +11,20 @@ export const MainPage = ({
     return <option value="">-Please select a difficulty-</option>;
   };
 
-  const onCategorySelectHandle = (e) => {
-    const category = e.target.value;
+  const onCategorySelectHandle = () => {
+    const category = onCategoryChange;
     const selectedCategory = questions[category];
+    // const difficulties = selectedCategory[onDifficultyChange];
+
+    Object.keys(selectedCategory).forEach(([level]) => {
+      return <option key={level} value={level}>
+    </option>
+
+  })
   };
 
-  const displayQuestions = () => {};
 
-  const diffuculites = questions[currentCategory];
+  
 
   return (
     <>
@@ -44,9 +50,10 @@ export const MainPage = ({
               id="difficulty"
               onChange={(e) => onDifficultyChange(e.target.value)}
             >
-              <option value="">-Please select a difficulty-</option>
-              <option value="easy">Easy</option>
+            {getPlaceholderOption()}
+            {onCategorySelectHandle()}
             </select>
+            
           </div>
           <button className="start-btn" onClick={onStartQuiz}>
             Start game

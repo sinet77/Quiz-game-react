@@ -1,3 +1,6 @@
+import { questions } from "/src/Questions.js";
+import { useState } from "react";
+
 export const Questions = ({
   currentQuestion,
   category,
@@ -31,10 +34,8 @@ const questionsInCategory = [{
 
 */
 
-  const goToNextQuestion = () => {
-    // sprawdzac czy uzytkownik
+  const canIGoToNextQuestion = () => {
     if (isCorrectAnswer) {
-      // setCurrentQuestion ++
       goToNextQuestion();
     }
   };
@@ -53,7 +54,7 @@ const questionsInCategory = [{
           <button onClick={() => checkAnswer(a.correct)}>{a.text}</button>;
         })}
       </div>
-      <button onClick={goToNextQuestion}>Next</button>
+      <button onClick={canIGoToNextQuestion}>Next</button>
     </>
   );
 };
