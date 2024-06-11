@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import "./MainPage.css";
 import { questions } from "../../Questions";
 
@@ -6,26 +7,25 @@ export const MainPage = ({
   onDifficultyChange,
   onStartQuiz,
   currentCategory,
+  selectedDifficulty,
 }) => {
+
+  const [difficulties, setDifficulties] = useState([]);
+
   const getPlaceholderOption = () => {
     return <option value="">-Please select a difficulty-</option>;
   };
 
-  const onCategorySelectHandle = () => {
-    const category = onCategoryChange;
-    const selectedCategory = questions[category];
-    // const difficulties = selectedCategory[onDifficultyChange];
+  const onCategorySelectHandle = (category) => {
+    onCategoryChange(category);
 
-    Object.keys(selectedCategory).forEach(([level]) => {
-      return <option key={level} value={level}>
-    </option>
+      const selectedCategory = questions[category];
+      const difficultyLevels = Object.keys(selectedCategory);
+      setDifficulties(difficultyLevels);
 
-  })
+
   };
-
-
   
-
   return (
     <>
       <div className="app">
@@ -34,8 +34,9 @@ export const MainPage = ({
           <div>
             <label htmlFor="category">Choose a category:</label>
             <select
-              onChange={(e) => onCategoryChange(e.target.value)}
+              onChange={(e) => onCategorySelectHandle(e.target.value)}
               id="category"
+              value={currentCategory || ""}
             >
               <option value="">-Please select a category-</option>
               <option value="Animals">Animals</option>
@@ -47,12 +48,17 @@ export const MainPage = ({
           <div>
             <label htmlFor="difficulty">Select difficulty:</label>
             <select
-              id="difficulty"
-              onChange={(e) => onDifficultyChange(e.target.value)}
-            >
+            id="difficulty"
+            onChange={(e) => onDifficultyChange(e.target.value)}
+            value={selectedDifficulty || ""}
+          >
             {getPlaceholderOption()}
-            {onCategorySelectHandle()}
-            </select>
+            {difficulties.map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
+            ))}
+          </select>
             
           </div>
           <button className="start-btn" onClick={onStartQuiz}>
@@ -63,3 +69,4 @@ export const MainPage = ({
     </>
   );
 };
+

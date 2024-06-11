@@ -2,9 +2,10 @@ import { useState } from "react";
 import "./App.css";
 import { MainPage } from "./components/MainPage/MainPage";
 import { Questions } from "./components/Questions/Questions";
+
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState();
-  const [selectedDifficulty, setSelectedDifficulty] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState();
 
   const handleSelectedCategoryChange = (newCategory) => {
@@ -23,13 +24,18 @@ function App() {
     setCurrentQuestion(currentQuestion + 1);
   };
 
-  console.log(selectedDifficulty);
+  console.log("selectedCategory", selectedCategory);
+  console.log("selectedDifficulty", selectedDifficulty);
 
   const onStartQuiz = () => {
-    setCurrentQuestion(1);
+    if (selectedDifficulty === "" || selectedCategory === "") {
+      alert("Please select options below");
+    } else {
+      setCurrentQuestion(1);
+    }
   };
 
-  console.log(currentQuestion);
+  console.log("currentQuestion",currentQuestion);
 
   return (
     <div className="App">
@@ -37,6 +43,8 @@ function App() {
         <MainPage
           onCategoryChange={handleSelectedCategoryChange}
           onDifficultyChange={handleSelectedDifficultyChange}
+          currentCategory={selectedCategory}
+          selectedDifficulty={selectedDifficulty}
           onStartQuiz={onStartQuiz}
         />
       )}
