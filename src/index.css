@@ -12,11 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 .app {
   min-height: 90vh;
   background-color: rgb(160, 160, 160);
