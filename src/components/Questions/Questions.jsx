@@ -1,7 +1,6 @@
 import { questions } from "/src/Questions.js";
 import { useState } from "react";
 
-
 export const Questions = ({
   currentQuestion,
   category,
@@ -51,21 +50,30 @@ const questionsInCategory = [{
   const singleQuestion = questionsInCategory[currentQuestion];
 
   return (
-    
     <div className="app">
-      <div className="text-question" >{singleQuestion.question}</div>
+      <div className="text-question">{singleQuestion.question}</div>
       <div>
-      {singleQuestion.answers.map((a, index) => {
-  return (
-    <button className="btn" key={index} onClick={() => checkAnswer(a.correct)} >
-      {a.text}
-    </button>
-  );
-})}
+        {singleQuestion.answers.map((a, index) => {
+          return (
+            <button
+              className="btn"
+              key={index}
+              onClick={() => checkAnswer(a.correct)}
+            >
+              {a.text}
+            </button>
+          );
+        })}
       </div>
-      <button className ="next-btn" onClick={() => { canIGoToNextQuestion}}>Next</button>
-
-   
+      <button
+        className="next-btn"
+        onClick={() => {
+          canIGoToNextQuestion();
+          goToNextQuestion();
+        }}
+      >
+        Next
+      </button>
     </div>
   );
 };

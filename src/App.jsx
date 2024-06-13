@@ -18,8 +18,8 @@ function App() {
   };
 
   const handleCurrentQuestion = (question) => {
-    setCurrentQuestion(question)
-  }
+    setCurrentQuestion(question);
+  };
 
   const goToNextQuestion = () => {
     setCurrentQuestion(currentQuestion + 1);
@@ -36,7 +36,7 @@ function App() {
     }
   };
 
-  console.log("currentQuestion",currentQuestion);
+  console.log("currentQuestion", currentQuestion);
 
   return (
     <div className="App">
@@ -50,10 +50,10 @@ function App() {
         />
       ) : (
         <Questions
-        currentQuestion={currentQuestion}
-        category={selectedCategory}
-        difficulty={selectedDifficulty}
-        goToNextQuestion={goToNextQuestion}
+          currentQuestion={currentQuestion}
+          category={selectedCategory}
+          difficulty={selectedDifficulty}
+          goToNextQuestion={goToNextQuestion}
         />
       )}
     </div>
