@@ -1,6 +1,7 @@
 import { questions } from "/src/Questions.js";
 import { useState } from "react";
 
+
 export const Questions = ({
   currentQuestion,
   category,
@@ -12,6 +13,7 @@ export const Questions = ({
   // Pobierz questiosn z Questions.js i wyświetl pytanie o danym indeksie
 
   const currentCategory = questions[category];
+
   /*
 const currentCategory = {
     "Beginner explorer": questionsEasyAnimals,
@@ -21,6 +23,7 @@ const currentCategory = {
 */
 
   const questionsInCategory = currentCategory[difficulty];
+
   /* 
 const questionsInCategory = [{
     question: "Which animal is the biggest?",
@@ -37,6 +40,7 @@ const questionsInCategory = [{
   const canIGoToNextQuestion = () => {
     if (isCorrectAnswer) {
       goToNextQuestion();
+      setIsCorrectAnswer(false);
     }
   };
 
@@ -47,14 +51,21 @@ const questionsInCategory = [{
   const singleQuestion = questionsInCategory[currentQuestion];
 
   return (
-    <>
-      <div>{singleQuestion.question}</div>
+    
+    <div className="app">
+      <div className="text-question" >{singleQuestion.question}</div>
       <div>
-        {singleQuestion.answers.map((a) => {
-          <button onClick={() => checkAnswer(a.correct)}>{a.text}</button>;
-        })}
+      {singleQuestion.answers.map((a, index) => {
+  return (
+    <button className="btn" key={index} onClick={() => checkAnswer(a.correct)} >
+      {a.text}
+    </button>
+  );
+})}
       </div>
-      <button onClick={canIGoToNextQuestion}>Next</button>
-    </>
+      <button className ="next-btn" onClick={() => { canIGoToNextQuestion}}>Next</button>
+
+   
+    </div>
   );
 };

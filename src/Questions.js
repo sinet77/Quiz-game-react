@@ -1,3 +1,5 @@
+import "./index.css";
+
 const questionsEasyAnimals = [
   {
     question: "Which animal is the biggest?",

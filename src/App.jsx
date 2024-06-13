@@ -2,11 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import { MainPage } from "./components/MainPage/MainPage";
 import { Questions } from "./components/Questions/Questions";
+import { questions } from "./Questions";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
-  const [currentQuestion, setCurrentQuestion] = useState();
+  const [currentQuestion, setCurrentQuestion] = useState(null);
 
   const handleSelectedCategoryChange = (newCategory) => {
     setSelectedCategory(newCategory);
@@ -31,7 +32,7 @@ function App() {
     if (selectedDifficulty === "" || selectedCategory === "") {
       alert("Please select options below");
     } else {
-      setCurrentQuestion(1);
+      setCurrentQuestion(0);
     }
   };
 
@@ -39,7 +40,7 @@ function App() {
 
   return (
     <div className="App">
-      {!currentQuestion && (
+      {currentQuestion === null ? (
         <MainPage
           onCategoryChange={handleSelectedCategoryChange}
           onDifficultyChange={handleSelectedDifficultyChange}
@@ -47,14 +48,14 @@ function App() {
           selectedDifficulty={selectedDifficulty}
           onStartQuiz={onStartQuiz}
         />
+      ) : (
+        <Questions
+        currentQuestion={currentQuestion}
+        category={selectedCategory}
+        difficulty={selectedDifficulty}
+        goToNextQuestion={goToNextQuestion}
+        />
       )}
-
-      {selectedCategory !== undefined &&
-        selectedDifficulty !== undefined &&
-        currentQuestion && <Questions goToNextQuestion={goToNextQuestion} 
-        category={handleSelectedCategoryChange} 
-        difficulty={handleSelectedDifficultyChange} 
-        currentQuestion={handleCurrentQuestion}/>}
     </div>
   );
 }
