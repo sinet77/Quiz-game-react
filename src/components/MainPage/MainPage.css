@@ -96,7 +96,7 @@ body {
   transform: scale(1.1);
 }
 
-#menu {
+.menu {
   width: 100px;
   margin-top: 50px;
   height: 40px;
