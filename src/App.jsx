@@ -33,11 +33,11 @@ function App() {
     setCurrentQuestion(currentQuestion + 1);
   };
 
-  const goToPreviousQuestion = () => {
-    if (currentQuestion != 0) {
-      setCurrentQuestion(currentQuestion - 1);
-    }
-  };
+  // const goToPreviousQuestion = () => {
+  //   if (currentQuestion != 0) {
+  //     setCurrentQuestion(currentQuestion - 1);
+  //   }
+  // };
 
   console.log("selectedCategory", selectedCategory);
   console.log("selectedDifficulty", selectedDifficulty);
