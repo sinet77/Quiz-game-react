@@ -21,6 +21,7 @@ function App() {
 
   const goToMenu = () => {
     setCurrentPage("main");
+    setSelectedCategory("");
     setCurrentQuestion(null);
     setPoints(0);
   };
