@@ -2,12 +2,14 @@ import { useState } from "react";
 import "./App.css";
 import { MainPage } from "./components/MainPage/MainPage";
 import { Questions } from "./components/Questions/Questions";
-import { questions } from "./Questions";
+import { PointsPage } from "./components/PointsPage/PointsPage";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [currentPage, setCurrentPage] = useState("main");
+  const [points, setPoints] = useState(0);
 
   const handleSelectedCategoryChange = (newCategory) => {
     setSelectedCategory(newCategory);
@@ -17,15 +19,20 @@ function App() {
     setSelectedDifficulty(newDifficulty);
   };
 
-  const handleCurrentQuestion = (question) => {
-    setCurrentQuestion(question);
+  const goToMenu = () => {
+    setCurrentPage("main");
+    setCurrentQuestion(null);
+    setPoints(0);
+  };
+  const goToPointsPage = () => {
+    setCurrentPage("points");
   };
 
   const goToNextQuestion = () => {
     setCurrentQuestion(currentQuestion + 1);
   };
 
-  const goToPreviostQuestion = () => {
+  const goToPreviousQuestion = () => {
     if (currentQuestion != 0) {
       setCurrentQuestion(currentQuestion - 1);
     }
@@ -39,6 +46,7 @@ function App() {
       alert("Please select options below");
     } else {
       setCurrentQuestion(0);
+      setCurrentPage("questions");
     }
   };
 
@@ -46,7 +54,7 @@ function App() {
 
   return (
     <div className="App">
-      {currentQuestion === null ? (
+      {currentQuestion === null && currentPage === "main" ? (
         <MainPage
           onCategoryChange={handleSelectedCategoryChange}
           onDifficultyChange={handleSelectedDifficultyChange}
@@ -54,13 +62,18 @@ function App() {
           selectedDifficulty={selectedDifficulty}
           onStartQuiz={onStartQuiz}
         />
-      ) : (
+      ) : currentPage === "questions" ? (
         <Questions
           currentQuestion={currentQuestion}
           category={selectedCategory}
           difficulty={selectedDifficulty}
           goToNextQuestion={goToNextQuestion}
+          goToPointsPage={goToPointsPage}
+          points={points}
+          setPoints={setPoints}
         />
+      ) : (
+        <PointsPage goToMenu={goToMenu} points={points} />
       )}
     </div>
   );

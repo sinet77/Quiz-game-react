@@ -1,15 +1,15 @@
-import { MainPage } from "../MainPage/MainPage";
 import { questions } from "/src/Questions.js";
 import { useState } from "react";
-import { PointsPage } from "../PointsPage/PointsPage";
 
 export const Questions = ({
   currentQuestion,
   category,
   difficulty,
   goToNextQuestion,
+  goToPointsPage,
+  points,
+  setPoints,
 }) => {
-  const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
   const [userAnswer, setUserAnswer] = useState([]);
   const [counter, setCounter] = useState(0);
 
@@ -42,21 +42,14 @@ const questionsInCategory = [{
 
   const canIGoToNextQuestion = () => {
     if (userAnswer.length) {
-      goToNextQuestion();
       setUserAnswer([]);
       if (counter < questionsInCategory.length - 1) {
         setCounter(counter + 1);
+        goToNextQuestion();
       } else {
-        alert(
-          "You have reached the end of the quiz. There are no more questions."
-        );
-        <PointsPage />;
+        goToPointsPage();
       }
     }
-  };
-
-  const goToMenu = () => {
-    <MainPage />;
   };
 
   /*
@@ -99,13 +92,15 @@ const questionsInCategory = [
   */
 
   const checkAnswer = (index, allAnswers) => {
-    const newAnwser = [...allAnswers];
-    newAnwser[index].userSelect = true;
+    const newAnswer = [...allAnswers];
+    newAnswer[index].userSelect = true;
 
-    setUserAnswer(newAnwser);
+    setUserAnswer(newAnswer);
+
+    if (newAnswer[index].correct) {
+      setPoints(points + 1);
+    }
   };
-
-  const getColorButton = () => {};
 
   return (
     <div className="app">
@@ -140,26 +135,9 @@ const questionsInCategory = [
             })}
       </div>
       <div>
-        {counter >= questionsInCategory.length ? (
-          <button
-            className="menu"
-            onClick={() => {
-              goToMenu();
-            }}
-          >
-            Menu
-          </button>
-        ) : (
-          <button
-            className="next-btn"
-            onClick={() => {
-              canIGoToNextQuestion();
-              goToNextQuestion();
-            }}
-          >
-            Next
-          </button>
-        )}
+        <button className="next-btn" onClick={canIGoToNextQuestion}>
+          Next
+        </button>
       </div>
     </div>
   );
