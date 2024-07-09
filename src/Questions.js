@@ -617,7 +617,7 @@ export const questions = {
   },
   Sport: {
     "Sport enthusiast": questionsEasySport,
-    "Athlete": questionsMediumSport,
+    Athlete: questionsMediumSport,
     "Pro player": questionsHardSport,
   },
 };

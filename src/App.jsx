@@ -11,6 +11,10 @@ function App() {
   const [currentPage, setCurrentPage] = useState("main");
   const [points, setPoints] = useState(0);
 
+  const onPointsChange = (points) => {
+    setPoints(points + 1);
+  };
+
   const handleSelectedCategoryChange = (newCategory) => {
     setSelectedCategory(newCategory);
   };
@@ -53,31 +57,53 @@ function App() {
 
   console.log("currentQuestion", currentQuestion);
 
-  return (
-    <div className="App">
-      {currentQuestion === null && currentPage === "main" ? (
-        <MainPage
-          onCategoryChange={handleSelectedCategoryChange}
-          onDifficultyChange={handleSelectedDifficultyChange}
-          currentCategory={selectedCategory}
-          selectedDifficulty={selectedDifficulty}
-          onStartQuiz={onStartQuiz}
-        />
-      ) : currentPage === "questions" ? (
-        <Questions
-          currentQuestion={currentQuestion}
-          category={selectedCategory}
-          difficulty={selectedDifficulty}
-          goToNextQuestion={goToNextQuestion}
-          goToPointsPage={goToPointsPage}
-          points={points}
-          setPoints={setPoints}
-        />
-      ) : (
-        <PointsPage goToMenu={goToMenu} points={points} />
-      )}
-    </div>
-  );
+  const displayScreen = () => {
+    switch (currentPage) {
+      case "main": {
+        return (
+          <MainPage
+            onCategoryChange={handleSelectedCategoryChange}
+            onDifficultyChange={handleSelectedDifficultyChange}
+            currentCategory={selectedCategory}
+            selectedDifficulty={selectedDifficulty}
+            onStartQuiz={onStartQuiz}
+          />
+        );
+      }
+
+      case "questions": {
+        return (
+          <Questions
+            currentQuestion={currentQuestion}
+            category={selectedCategory}
+            difficulty={selectedDifficulty}
+            goToNextQuestion={goToNextQuestion}
+            goToPointsPage={goToPointsPage}
+            points={points}
+            setPoints={onPointsChange}
+          />
+        );
+      }
+
+      case "points": {
+        return <PointsPage goToMenu={goToMenu} points={points} />;
+      }
+
+      default: {
+        return (
+          <MainPage
+            onCategoryChange={handleSelectedCategoryChange}
+            onDifficultyChange={handleSelectedDifficultyChange}
+            currentCategory={selectedCategory}
+            selectedDifficulty={selectedDifficulty}
+            onStartQuiz={onStartQuiz}
+          />
+        );
+      }
+    }
+  };
+
+  return <div className="App">{displayScreen()}</div>;
 }
 
 export default App;

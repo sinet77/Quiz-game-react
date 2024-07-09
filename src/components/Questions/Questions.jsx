@@ -11,9 +11,6 @@ export const Questions = ({
   setPoints,
 }) => {
   const [userAnswer, setUserAnswer] = useState([]);
-  const [counter, setCounter] = useState(0);
-
-  // Pobierz questiosn z Questions.js i wyświetl pytanie o danym indeksie
 
   const currentCategory = questions[category];
 
@@ -43,8 +40,7 @@ const questionsInCategory = [{
   const canIGoToNextQuestion = () => {
     if (userAnswer.length) {
       setUserAnswer([]);
-      if (counter < questionsInCategory.length - 1) {
-        setCounter(counter + 1);
+      if (currentQuestion < questionsInCategory.length - 1) {
         goToNextQuestion();
       } else {
         goToPointsPage();
@@ -98,7 +94,7 @@ const questionsInCategory = [
     setUserAnswer(newAnswer);
 
     if (newAnswer[index].correct) {
-      setPoints(points + 1);
+      setPoints(points);
     }
   };
 
